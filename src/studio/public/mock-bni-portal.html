@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>BNI AMS FAST - Audit Pelaksanaan & Pengujian (Demo Portal)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #f1f5f9;
+      color: #0f172a;
+      padding: 0;
+    }
+    /* BNI Header */
+    .bni-navbar {
+      background: linear-gradient(90deg, #005e82 0%, #008299 100%);
+      color: white;
+      padding: 14px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 94, 130, 0.2);
+    }
+    .bni-logo-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .bni-logo {
+      font-weight: 900;
+      font-size: 20px;
+      letter-spacing: 1px;
+      color: #f97316;
+      background: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .bni-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .user-pill {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    /* Main Content */
+    .container {
+      max-width: 1200px;
+      margin: 28px auto;
+      padding: 0 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      border: 1px solid #e2e8f0;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #005e82;
+      margin-bottom: 8px;
+    }
+    .card-desc {
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 20px;
+    }
+    /* Filter Bar */
+    .filter-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      align-items: flex-end;
+      margin-bottom: 12px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-control:focus {
+      border-color: #008299;
+    }
+    .btn-bni {
+      background: #f97316;
+      color: white;
+      font-weight: 700;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: background 0.2s;
+    }
+    .btn-bni:hover { background: #ea580c; }
+    /* Table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      font-size: 13px;
+    }
+    .data-table th {
+      background: #f8fafc;
+      color: #475569;
+      font-weight: 700;
+      text-align: left;
+      padding: 12px 16px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+    .data-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #f1f5f9;
+      color: #1e293b;
+    }
+    .data-table tr:hover td {
+      background: #f0fdfa;
+    }
+    .badge-status {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .badge-pending { background: #fef3c7; color: #b45309; }
+    .badge-approved { background: #dcfce7; color: #15803d; }
+    .btn-action {
+      background: #0284c7;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-action:hover { background: #0369a1; }
+    /* Modal */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-card {
+      background: white;
+      border-radius: 12px;
+      width: 480px;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+    .modal-header {
+      font-size: 16px;
+      font-weight: 800;
+      color: #005e82;
+      margin-bottom: 12px;
+    }
+    .modal-body {
+      font-size: 13px;
+      color: #475569;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="bni-navbar">
+    <div class="bni-logo-title">
+      <div class="bni-logo">BNI</div>
+      <div class="bni-title">AMS FAST — Pelaksanaan Audit Offline v2.4</div>
+    </div>
+    <div class="user-pill" id="userBadge">NPP: 98124 (FASTIA25 - Auditor Senior)</div>
+  </nav>
+
+  <div class="container">
+    <div class="card" id="filterCard">
+      <div class="card-title">Filter Program & Penugasan Audit</div>
+      <div class="card-desc">Pilih unit kerja dan tahun buku untuk menampilkan jadwal program audit offline.</div>
+
+      <div class="filter-grid">
+        <div class="form-group">
+          <label for="selectUnit">Unit Kerja / Cabang:</label>
+          <select id="selectUnit" class="form-control">
+            <option value="JTM">Wilayah 06 - Jawa Timur</option>
+            <option value="JKT" selected>Wilayah 10 - Jakarta Senayan</option>
+            <option value="BDG">Wilayah 04 - Bandung</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="inputKeyword">Kata Kunci / No. Ref:</label>
+          <input type="text" id="inputKeyword" class="form-control" placeholder="Contoh: AP-2026-001" value="AP-NON-KREDIT-01">
+        </div>
+        <div>
+          <button id="btnSearch" class="btn-bni">🔍 Tampilkan Program</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="tableCard">
+      <div class="card-title">Daftar Pelaksanaan Audit Non-Kredit</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>No. Ref</th>
+            <th>Program Pengujian</th>
+            <th>Auditor PIC</th>
+            <th>Tanggal Target</th>
+            <th>Status</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="auditTableBody">
+          <tr id="row-1">
+            <td><strong>AP-NK-001</strong></td>
+            <td>Verifikasi Kas & Petty Cash Operasional</td>
+            <td>FASTIA25</td>
+            <td>10 Nov 2026</td>
+            <td><span class="badge-status badge-pending">DRAFT</span></td>
+            <td><button class="btn-action" id="btnDetail-1">Verifikasi</button></td>
+          </tr>
+          <tr id="row-2">
+            <td><strong>AP-NK-002</strong></td>
+            <td>Rekonsiliasi Rekening Antar Kantor (RAK)</td>
+            <td>FASTIA25</td>
+            <td>12 Nov 2026</td>
+            <td><span class="badge-status badge-approved">SELESAI</span></td>
+            <td><button class="btn-action" id="btnDetail-2">Lihat</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Detail Modal -->
+  <div class="modal-backdrop" id="modalVerify">
+    <div class="modal-card" id="modalCard">
+      <div class="modal-header">Persetujuan Hasil Audit Kas #AP-NK-001</div>
+      <div class="modal-body">
+        Pastikan perhitungan saldo fisik kas teller telah sesuai dengan mutasi GL harian.
+        Apakah Anda yakin ingin memvalidasi dan menyetujui lembar kerja ini?
+      </div>
+      <div class="modal-footer">
+        <button id="btnModalCancel" class="btn-action" style="background:#94a3b8;">Batal</button>
+        <button id="btnModalApprove" class="btn-bni">✔ Setujui Evidens</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('btnDetail-1').addEventListener('click', () => {
+      document.getElementById('modalVerify').classList.add('open');
+    });
+    document.getElementById('btnModalCancel').addEventListener('click', () => {
+      document.getElementById('modalVerify').classList.remove('open');
+    });
+    document.getElementById('btnModalApprove').addEventListener('click', () => {
+      document.getElementById('modalVerify').classList.remove('open');
+      const badge = document.querySelector('#row-1 .badge-status');
+      badge.textContent = 'TERSETUJUI';
+      badge.className = 'badge-status badge-approved';
+    });
+  </script>
+</body>
+</html>
+

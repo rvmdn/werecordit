@@ -1,0 +1,70 @@
+# ==============================================================
+# WeRecordIt Enterprise .gitignore
+# ==============================================================
+
+# Node Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment & Credentials (CRITICAL: Do NOT commit secrets!)
+.env
+.env.*
+!.env.example
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
+*.cert
+.auth/
+
+# Playwright Test Execution Artifacts
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Generated Video & Image Evidens (Keep repository size lean)
+output/videos/*
+!output/videos/.gitkeep
+output/snips/*
+!output/snips/.gitkeep
+output/reports/*
+!output/reports/.gitkeep
+output/manifest.json
+
+# Operating System Files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# IDE & Code Editors
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.swp
+*.swo
+*~
+
+# Temporary Logs & Cache
+*.log
+logs/
+tmp/
+temp/
+scratch/
+

@@ -1,0 +1,38 @@
+{
+  "name": "werecordit",
+  "version": "1.0.0",
+  "description": "WeRecordIt Enterprise Studio - Automated Testing, Snipping Tools & Video Demo Walkthrough Suite for BNI",
+  "main": "src/studio/server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node src/studio/server.js",
+    "studio": "powershell -ExecutionPolicy Bypass -File launch-werecordit.ps1",
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "typecheck": "tsc --noEmit",
+    "demo": "playwright test tests/01-demo-ams-audit-flow.spec.ts",
+    "demo:login": "playwright test tests/02-demo-login-security.spec.ts"
+  },
+  "keywords": [
+    "playwright",
+    "automation",
+    "video-record",
+    "snipping-tool",
+    "demo-generator",
+    "bni",
+    "edv",
+    "enterprise-testing"
+  ],
+  "author": "ADV / QA Automation Team",
+  "license": "ISC",
+  "dependencies": {
+    "@playwright/test": "^1.64.1",
+    "express": "^5.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.9",
+    "typescript": "^5.8.2"
+  }
+}
